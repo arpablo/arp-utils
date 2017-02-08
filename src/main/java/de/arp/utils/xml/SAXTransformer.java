@@ -3,18 +3,20 @@
  */
 package de.arp.utils.xml;
 
-import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
 
-import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
 
 /**
  * @author arp
  *
  */
-public class SAXTransformer {
+public abstract class SAXTransformer {
 
 	public static final String XALAN_FACTORY = "org.apache.xalan.processor.TransformerFactoryImpl";
 	public static final String SAXON_HE_FACTORY = "net.sf.saxon.TransformerFactoryImpl";
@@ -23,39 +25,6 @@ public class SAXTransformer {
 	
 	private SAXTransformerFactory stf;
 	
-	/**
-	 * Return a new Xalan-based SAXTransformer
-	 * @return a SAXTransformer
-	 */
-	public static SAXTransformer newXalanSAXTransformer() {
-		return new SAXTransformer(XALAN_FACTORY);
-	}
-
-	/**
-	 * Return a new SAXON HE-based SAXTransformer
-	 * @return a SAXTransformer
-	 */
-	public static SAXTransformer newSaxon_HESAXTransformer() {
-		return new SAXTransformer(SAXON_HE_FACTORY);
-	}
-	
-	/**
-	 * Return a new SAXON PE-based SAXTransformer
-	 * @return a SAXTransformer
-	 */
-	public static SAXTransformer newSaxon_PESAXTransformer() {
-		return new SAXTransformer(SAXON_PE_FACTORY);
-	}
-	
-	/**
-	 * Return a new SAXON EE-based SAXTransformer
-	 * @return a SAXTransformer
-	 */
-	public static SAXTransformer newSaxon_EESAXTransformer() {
-		return new SAXTransformer(SAXON_EE_FACTORY);
-	}
-	
-
 	/**
 	 * Default Constructor
 	 */
@@ -96,5 +65,25 @@ public class SAXTransformer {
 	public SAXTransformerFactory getSAXTransformerFactory() {
 		return stf;
 	}
+
+	
+	/**
+	 * Transform the given source to the given result
+	 * @param source	the Source to transform
+	 * @param result	the result to transform to
+	 * @throws SAXException
+	 * @throws TransformerException
+	 */
+	public abstract void transform(Source source, Result result) throws SAXException, TransformerException;
+
+	/**
+	 * Transform the given source to the given result using the provided transformer
+	 * @param t			the transformer to use
+	 * @param source	the Source to transform
+	 * @param result	the result to transform to
+	 * @throws SAXException
+	 * @throws TransformerException
+	 */
+	public abstract void transform(Transformer t, Source source, Result result) throws SAXException, TransformerException;
 
 }

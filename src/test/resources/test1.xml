@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<test id="0">
+    <test1 id="1">Test1</test1>
+    <test2 id="2">
+        <test2_1 id="2.1">Test 2.1</test2_1>
+        <test2_2 id="2.2">Test 2.2</test2_2>
+    </test2>
+</test>

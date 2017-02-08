@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MimeTypeUtils {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(MimeTypeUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(MimeTypeUtils.class);
 	
 	private static final Map<String, String> EXTENSIONSMAP;
 	private static final MimetypesFileTypeMap MIMETYPESMAP = new MimetypesFileTypeMap();
@@ -90,7 +90,6 @@ public class MimeTypeUtils {
 		if (EXTENSIONSMAP.containsKey(extension)) {
 			return new MimeType(EXTENSIONSMAP.get(extension));
 		}
-		//Example: imgf35409e6ee885ae90a9dd569570d1b12.vnd.openxmlformats-officedocument.presentationml.presentation
 		for (final String mimeTypeString : EXTENSIONSMAP.values()) {
 			final MimeType mimeType = new MimeType(mimeTypeString);
 			if (fileName.endsWith(mimeType.getSubType())) {
@@ -99,7 +98,7 @@ public class MimeTypeUtils {
 		}
 
 		final MimeType ret =  new MimeType(MIMETYPESMAP.getContentType(fileName));
-		LOG.debug("Determining mime-type as: " + ret.toString() + " for filename: " + fileName);
+		logger.debug("Determining mime-type as: " + ret.toString() + " for filename: " + fileName);
 		return ret;
 	}
 

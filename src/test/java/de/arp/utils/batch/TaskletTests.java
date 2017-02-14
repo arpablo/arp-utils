@@ -30,6 +30,7 @@ public class TaskletTests {
 
 	@Test
 	public void testXslt1() throws Exception {
+		log.debug("start testXslt1");
 		JobParameters params1 = new JobParametersBuilder()
 				.addString(XsltTasklet.STYLESHEETS_PARAM, "test1.xsl")
 				.toJobParameters();

@@ -4,6 +4,8 @@
 package de.arp.utils.xml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -26,7 +28,8 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public class ChainedFilterTransformer extends SAXTransformer {
 
 	private ArrayList<XMLFilter> filters = new ArrayList<XMLFilter>();
-
+	private Map<String, String> parameters = new HashMap<String, String>();
+	
 	/**
 	 * Return a new Xalan-based SAXTransformer
 	 * @return a SAXTransformer
@@ -92,6 +95,21 @@ public class ChainedFilterTransformer extends SAXTransformer {
 		super(className, cl);
 	}
 
+	
+	/**
+	 * @return the filters
+	 */
+	public ArrayList<XMLFilter> getFilters() {
+		return filters;
+	}
+
+	/**
+	 * @return the parameters
+	 */
+	public Map<String, String> getParameters() {
+		return parameters;
+	}
+
 	/**
 	 * Clear the filters of this chain
 	 */
@@ -125,6 +143,30 @@ public class ChainedFilterTransformer extends SAXTransformer {
 		this.filters.add(getSAXTransformerFactory().newXMLFilter(template));
 	}
 	
+	/**
+	 * Clear the parameters
+	 */
+	public void clearParameters() {
+		this.parameters.clear();
+	}
+	
+	/**
+	 * Add a parameter to the set of parameters
+	 * @param key
+	 * @param value
+	 */
+	public void addParameter(String key, String value) {
+		this.parameters.put(key, value);
+	}
+	
+	/**
+	 * Add a map of parameters
+	 * @param params
+	 */
+	public void addParameters(Map<String, String> params) {
+		this.parameters.putAll(params);
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.arp.utils.xml.SAXTransformer#transform(javax.xml.transform.Source, javax.xml.transform.Result)
 	 */
@@ -145,6 +187,9 @@ public class ChainedFilterTransformer extends SAXTransformer {
 			for (XMLFilter filter : filters) {
 				filter.setParent(lastFilter);
 				lastFilter = filter;
+			}
+			for (Map.Entry<String, String> param : this.parameters.entrySet()) {
+				t.setParameter(param.getKey(), param.getValue());
 			}
 			t.transform(new SAXSource(lastFilter, XMLUtils.sourceToInputSource(source)), result);
 		} catch (TransformerConfigurationException ex) {

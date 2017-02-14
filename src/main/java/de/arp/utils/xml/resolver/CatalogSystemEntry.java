@@ -13,7 +13,7 @@ import org.apache.xml.resolver.CatalogException;
  * @author arp
  *
  */
-public class SystemEntry implements XMLCatalogEntry {
+public class CatalogSystemEntry implements XMLCatalogEntry {
 
 	private String systemId;
 	private String fsi;
@@ -21,7 +21,7 @@ public class SystemEntry implements XMLCatalogEntry {
 	/**
 	 * Default Constructor
 	 */
-	public SystemEntry() {
+	public CatalogSystemEntry() {
 		
 	}
 	
@@ -30,7 +30,7 @@ public class SystemEntry implements XMLCatalogEntry {
 	 * @param systemId
 	 * @param fsi
 	 */
-	public SystemEntry(String systemId, String fsi) {
+	public CatalogSystemEntry(String systemId, String fsi) {
 		this.systemId = systemId;
 		this.fsi = fsi;
 	}
@@ -93,7 +93,7 @@ public class SystemEntry implements XMLCatalogEntry {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SystemEntry other = (SystemEntry) obj;
+		CatalogSystemEntry other = (CatalogSystemEntry) obj;
 		if (systemId == null) {
 			if (other.systemId != null)
 				return false;

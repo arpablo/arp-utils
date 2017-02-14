@@ -15,7 +15,7 @@ import org.apache.xml.resolver.CatalogException;
  * @author arp
  *
  */
-public class PublicEntry implements XMLCatalogEntry {
+public class CatalogPublicEntry implements XMLCatalogEntry {
 
 	private String publicId;
 	private String systemId;
@@ -24,7 +24,7 @@ public class PublicEntry implements XMLCatalogEntry {
 	/**
 	 * Default constructor
 	 */
-	public PublicEntry() {
+	public CatalogPublicEntry() {
 		
 	}
 	
@@ -33,7 +33,7 @@ public class PublicEntry implements XMLCatalogEntry {
 	 * @param publicId
 	 * @param systemId
 	 */
-	public PublicEntry(String publicId, String systemId) {
+	public CatalogPublicEntry(String publicId, String systemId) {
 		this.publicId = publicId;
 		this.systemId = systemId;
 	}
@@ -97,7 +97,7 @@ public class PublicEntry implements XMLCatalogEntry {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PublicEntry other = (PublicEntry) obj;
+		CatalogPublicEntry other = (CatalogPublicEntry) obj;
 		if (publicId == null) {
 			if (other.publicId != null)
 				return false;

@@ -3,6 +3,10 @@
  */
 package de.arp.utils.batch;
 
+import java.util.HashMap;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -27,11 +31,17 @@ public class TaskletApplication {
 	@Autowired private JobBuilderFactory jobBuilderFactory;
 	@Autowired private StepBuilderFactory stepBuilderFactory;
 	
+	private HashMap<String, Step> stepDefs = new HashMap<String, Step>();
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(TaskletApplication.class, args);
 	}
 	
-	@Bean
+	@PostConstruct
+	public void init() {
+		stepDefs.put("xsltStep", stepBuilderFactory.get("xsltStep").tasklet(new XsltTasklet()).build());
+	}
+	
 	public Step xsltStep() {
 		return stepBuilderFactory.get("xsltStep").tasklet(new XsltTasklet()).build();
 	}
@@ -39,7 +49,7 @@ public class TaskletApplication {
 	@Bean
 	public Job getMainJob() {
 		return jobBuilderFactory.get("myjob").incrementer(new RunIdIncrementer())
-				.start(xsltStep())
+				.start(stepDefs.get("xsltStep"))
 				.build();
 	}
 }

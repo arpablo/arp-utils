@@ -7,11 +7,11 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.junit.Test;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.XMLFilterImpl;
 import org.junit.Assert;
+import org.junit.Test;
+
+import de.arp.utils.xml.filter.ElementNamesToLowerCaseFilter;
+import de.arp.utils.xml.filter.ElementNamesToUpperCaseFilter;
 
 /**
  * @author arp
@@ -83,45 +83,6 @@ public class XMLTests {
 		}
 	}
 
-	public class ElementNamesToUpperCaseFilter extends XMLFilterImpl {
-
-		/* (non-Javadoc)
-		 * @see org.xml.sax.helpers.XMLFilterImpl#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-		 */
-		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-			super.startElement(uri.toUpperCase(), localName.toUpperCase(), qName.toUpperCase(), atts);
-		}
-
-		/* (non-Javadoc)
-		 * @see org.xml.sax.helpers.XMLFilterImpl#endElement(java.lang.String, java.lang.String, java.lang.String)
-		 */
-		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
-			super.endElement(uri.toUpperCase(), localName.toUpperCase(), qName.toUpperCase());
-		}
-		
-	}
-
-	public class ElementNamesToLowerCaseFilter extends XMLFilterImpl {
-
-		/* (non-Javadoc)
-		 * @see org.xml.sax.helpers.XMLFilterImpl#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-		 */
-		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-			super.startElement(uri.toLowerCase(), localName.toLowerCase(), qName.toLowerCase(), atts);
-		}
-
-		/* (non-Javadoc)
-		 * @see org.xml.sax.helpers.XMLFilterImpl#endElement(java.lang.String, java.lang.String, java.lang.String)
-		 */
-		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
-			super.endElement(uri.toLowerCase(), localName.toLowerCase(), qName.toLowerCase());
-		}
-		
-	}
 
 }
 

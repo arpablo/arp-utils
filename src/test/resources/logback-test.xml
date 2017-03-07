@@ -10,7 +10,7 @@
     </appender>
     
     <logger name="org.springframework" level="warn" />
-    <logger name="de.arp" level="debug">
+    <logger name="de.arp" level="trace">
     </logger>
     
     <root level="error">

@@ -96,34 +96,29 @@ public class StreamPiper implements Runnable {
 	@Override
 	public void run() {
 		log.trace("{} started", this);
-		byte[] buffer = new byte[bufferSize];
-		
 		try {
-			int size = 0;
-			while( (size = input.read(buffer)) > 0) {
-				output.write(buffer, 0, size);
-			}
+			processStream();
 		} catch (IOException ex) {
 			log.error(ex.getMessage(), ex);
 		} finally {
 			if (closeInputStream) {
-				try {
-					input.close();
-				} catch (Exception ex) {
-					log.error("Error closing InputStream");
-				}
+				IOUtils.closeStream(input);
 			}
 			if (closeOutputStream) {
-				try {
-					output.close();
-				} catch (Exception ex) {
-					log.error("Error closing OutputStream");
-				}
+				IOUtils.closeStream(output);
 			}
 		}
 
 		
 		log.trace("{} finished", this);
+	}
+	
+	protected void processStream() throws IOException {
+		byte[] buffer = new byte[bufferSize];
+		int size = 0;
+		while( (size = input.read(buffer)) > 0) {
+			output.write(buffer, 0, size);
+		}
 	}
 
 }

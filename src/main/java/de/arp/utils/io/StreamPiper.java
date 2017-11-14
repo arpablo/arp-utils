@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class reads the content of a given Stream and writes
  * it to another stream. The class is implemented as a Runnable
- * to prvent blocking
+ * to prevent blocking
  * @author arp
  *
  */
